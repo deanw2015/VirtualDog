@@ -20,5 +20,6 @@
     "test/**/*.js": true
   }
 ,
-"vsicons.presets.angular": true
+"vsicons.presets.angular": true,
+"typescript.check.workspaceVersion": false
 }
