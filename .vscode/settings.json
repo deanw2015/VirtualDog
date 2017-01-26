@@ -19,4 +19,6 @@
     "app/**/*.js": true,
     "test/**/*.js": true
   }
+,
+"vsicons.presets.angular": true
 }
