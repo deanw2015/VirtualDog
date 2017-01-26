@@ -201,6 +201,7 @@ describe("In the file dogController.ts", () => {
         });
       });
     });
+
     describe("the masterThrow event handler", () => {
       let throwObject: vdog.DogObject;
       beforeEach(() => {
@@ -210,16 +211,39 @@ describe("In the file dogController.ts", () => {
         throwObject.chewy = false;
         (<jasmine.Spy>throwObject.chewOn).and.returnValue(vdog.ChewExperience.fair);
         sut.blogContent = "";
-        it("should blog master", () => {
-          $rootScope.$broadcast(vdog.eventNames.masterThrow, throwObject);
-          expect(sut.blogContent).toContain("master");
+      });
+      it("should blog master", () => {
+        $rootScope.$broadcast(vdog.eventNames.masterThrow, throwObject);
+        expect(sut.blogContent).toContain("master");
+      });
+      it("should blog thrown object", () => {
+        $rootScope.$broadcast(vdog.eventNames.masterThrow, throwObject);
+        expect(sut.blogContent).toContain(throwObject.name);
+      });
+      it("when thrown object does not fly should blog snapping", () => {
+        $rootScope.$broadcast(vdog.eventNames.masterThrow, throwObject);
+        expect(sut.blogContent).toContain("snapping");
+      });
+      it("when thrown object does fly should blog leapt", () => {
+        throwObject.flies = true;
+        $rootScope.$broadcast(vdog.eventNames.masterThrow, throwObject);
+        expect(sut.blogContent).toContain("leapt");
+      });
+      it("when thrown object is chewy and not in dogs chewObjects list should add thrown object to the chewObjects list", () => {
+        throwObject.chewy = true;
+        sut.chewObjects = [];
+        $rootScope.$broadcast(vdog.eventNames.masterThrow, throwObject);
+        expect(sut.chewObjects).toContain(throwObject);
+      });
+      describe("when thrown object chewOn returns squeaky", () => {
+        beforeEach(() => {
+          (<jasmine.Spy>throwObject.chewOn).and.returnValue(vdog.ChewExperience.squeaky);
         });
-        it("should blog thrown object", () => {
+        it("should blog squeak", () => {
           $rootScope.$broadcast(vdog.eventNames.masterThrow, throwObject);
-          expect(sut.blogContent).toContain(throwObject.name);
+          expect(sut.blogContent).toContain("squeak");
+
         });
-        it("when thrown object does not fly should blog snapping", () => {
-});
       });
     });
   });

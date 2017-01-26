@@ -46,7 +46,7 @@
       dogObject.chewLimit = 100;
       this.masterObjects.push(dogObject);
 
-      dogObject = new DogObject('Frisbee', true, false);
+      dogObject = new DogObject('frisbee', true, false);
       dogObject.flies = true;
       dogObject.chewLimit = 20;
       this.masterObjects.push(dogObject);
